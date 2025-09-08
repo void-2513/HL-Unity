@@ -45,6 +45,19 @@ public class PlayerAiming : MonoBehaviour
 
 		DecayPunchAngle();
 
+		if (Input.GetKeyDown(KeyCode.E))
+		{
+			if (Physics.Raycast(transform.position, transform.forward, out RaycastHit raycastHit, 3))
+			{
+				var entity = raycastHit.collider.GetComponentInParent<Entity>();
+
+				if (entity != null)
+				{
+					entity.OnInteract(gameObject);
+				}
+			}
+		}
+
 		// Input
 		float xMovement = Input.GetAxisRaw("Mouse X") * horizontalSensitivity * sensitivityMultiplier;
 		float yMovement = -Input.GetAxisRaw("Mouse Y") * verticalSensitivity  * sensitivityMultiplier;
@@ -67,10 +80,15 @@ public class PlayerAiming : MonoBehaviour
 	public void ViewPunch(Vector2 punchAmount)
 	{
 		//Remove previous recoil
-		punchAngle = Vector2.zero;
+		ViewPunchReset();
 
 		//Recoil go up
 		punchAngleVel -= punchAmount * 20;
+	}
+
+	public void ViewPunchReset()
+	{
+		punchAngle = Vector2.zero;
 	}
 
 	private void DecayPunchAngle()
