@@ -8,11 +8,11 @@ public class ItemBase : MonoBehaviour
     
     private bool used;
     
-    protected virtual void OnTouchPlayer(EPlayer player) { }
+    protected virtual void OnTouchPlayer(BasePlayer player) { }
 
     private void OnTriggerEnter(Collider other)
     {
-        var player = other.GetComponentInParent<EPlayer>();
+        var player = other.GetComponentInParent<BasePlayer>();
         
         if (player != null && !used)
         {

@@ -8,21 +8,24 @@ public class WeaponBase : MonoBehaviour
     public Animator animator;
     
     protected float lastAttackTime;
+    protected bool isDrawing = true;
+
+    private void Start()
+    {
+        weaponAudio = GetComponentInParent<AudioSource>();
+    }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
             PrimaryAttack();
         }
         
-        // reload animation transitions are broken for some reason so no reloads at all until i fix it >:(
-        /*
         if (Input.GetKeyDown(KeyCode.R))
         {
             Reload();
         }
-        */
     }
 
     protected virtual void PrimaryAttack() { }

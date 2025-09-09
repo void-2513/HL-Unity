@@ -17,9 +17,16 @@ public class Jeep : Entity
     public float brakeTorque = 500f; // braking force
     public float brakeInputThreshold = 0.1f; // minimum input to consider as braking
     public Rigidbody rigidbody;
+    public Transform steeringwheel;
 
     private bool hasDriver;
-    private EPlayer driver;
+    private BasePlayer driver;
+    private Quaternion initSteerRot;
+
+    private void Start()
+    {
+       
+    }
 
     public override void OnInteract(GameObject interactor)
     {
@@ -28,7 +35,8 @@ public class Jeep : Entity
         if (!hasDriver)
         {
             Activate();
-            driver = interactor.GetComponentInParent<EPlayer>();
+            driver = interactor.GetComponentInParent<BasePlayer>();
+            AssignOwner(driver);
             driver.EnterVehicle(viewPoint);
             
             hasDriver = true;
@@ -42,6 +50,7 @@ public class Jeep : Entity
             if (Input.GetKeyDown(KeyCode.E) && CanExitVehicle())
             {
                 driver.ExitVehicle(exitPosition);
+                RemoveOwner();
                 StartCoroutine(StopEngineRumble());
                 driver = null;
                 hasDriver = false;
@@ -61,6 +70,20 @@ public class Jeep : Entity
      
         visualWheel.transform.position = position;
         visualWheel.transform.rotation = rotation;
+    }
+
+    private void RotateSteeringWheel()
+    {
+        if (!steeringwheel) return;
+
+        float steeringInput = Input.GetAxis("Horizontal");
+        float targetAngle = maxSteeringAngle * steeringInput;
+    
+        // Create a local rotation around the Z axis
+        Quaternion targetLocalRotation = Quaternion.Euler(0f, targetAngle, 0f);
+    
+        // Apply the local rotation
+        steeringwheel.localRotation = targetLocalRotation;
     }
 
     private void FixedUpdate()
@@ -96,6 +119,7 @@ public class Jeep : Entity
             
                 ApplyLocalPositionToVisuals(axleInfo.leftWheel, axleInfo.visL);
                 ApplyLocalPositionToVisuals(axleInfo.rightWheel, axleInfo.visR);
+                RotateSteeringWheel();
             }
         }
     }

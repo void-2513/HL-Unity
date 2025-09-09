@@ -7,8 +7,18 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: v_hand_sheet
+    second: {fileID: 2100000, guid: a77bd2fdeecfb8b4f83c30a62916eb58, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: v_hand_sheet.bmp
     second: {fileID: 2100000, guid: a77bd2fdeecfb8b4f83c30a62916eb58, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: v_pistol_sheet
+    second: {fileID: 2100000, guid: 307b857cd027bb3469e73e8e7ef11d17, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

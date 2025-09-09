@@ -4,7 +4,7 @@ public class Item_HEV : ItemBase
 {
     public GameObject model;
     
-    protected override void OnTouchPlayer(EPlayer player)
+    protected override void OnTouchPlayer(BasePlayer player)
     {
         base.OnTouchPlayer(player);
         

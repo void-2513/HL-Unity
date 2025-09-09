@@ -10,6 +10,8 @@ public class Pistol : WeaponBase
     public int currentClip = 18;
 
     private bool isFiring;
+    private bool isEmpty;
+    private int numShotsFired;
 
     private void Awake()
     {
@@ -23,15 +25,36 @@ public class Pistol : WeaponBase
         if (fireRate + lastAttackTime > Time.time) return;
         
         if (currentClip == 0) return;
+        
+        if (isDrawing) return;
 
         isFiring = true;
+
+        if ( ( Time.time - lastAttackTime ) < 0.5f )
+        {
+            numShotsFired = 0;
+        }
+        else
+        {
+            numShotsFired++;
+        }
+
+        if ((currentClip - 1) == 0)
+        {
+            animator.SetTrigger("LastFire");
+            animator.SetBool("Empty", true);
+            isEmpty = true;
+        }
+        else
+        {
+            animator.SetTrigger("Fire");
+        }
         
         lastAttackTime = Time.time;
-        animator.SetTrigger("Fire");
         weaponAudio.PlayOneShot(shotSound);
         
-        EPlayer player = EPlayer.GetLocalPlayer();
-        if (player)
+        BasePlayer player = BasePlayer.GetLocalPlayer();
+        if ( player )
         {
             player.ViewPunchReset();
         }
@@ -43,7 +66,7 @@ public class Pistol : WeaponBase
 
     private void AddViewKick()
     {
-        EPlayer player = EPlayer.GetLocalPlayer();
+        BasePlayer player = BasePlayer.GetLocalPlayer();
         
         Vector2 viewPunch;
         viewPunch.x = Random.Range( 0.25f, 0.5f );
@@ -57,7 +80,10 @@ public class Pistol : WeaponBase
     {
         base.Reload();
         
+        if (currentClip == maxClip || isDrawing) return;
+        
         animator.SetTrigger("Reload");
+        
     }
 
     public void SetMaxClip()
@@ -68,5 +94,10 @@ public class Pistol : WeaponBase
     public void SetFireNo()
     {
         isFiring = false;
+    }
+
+    public void FinishDraw()
+    {
+        isDrawing = false;
     }
 }
