@@ -55,7 +55,7 @@ namespace Fragsurf.Movement {
         private Vector3 _angles;
         private Vector3 _startPosition;
         private GameObject _colliderObject;
-        private GameObject _cameraWaterCheckObject;
+        public GameObject _cameraWaterCheckObject;
         private CameraWaterCheck _cameraWaterCheck;
 
         private MoveData _moveData = new MoveData ();

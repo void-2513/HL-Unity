@@ -1067,6 +1067,7 @@ MonoBehaviour:
   fireRate: 0.2
   animator: {fileID: 8256104855458497846}
   shotSound: {fileID: 8300000, guid: a8f94b523e8600140bb2f795feb34d31, type: 3}
+  clickSound: {fileID: 8300000, guid: a73c7b632714096408753ebc13130929, type: 3}
   damage: 5
   maxClip: 18
   currentClip: 18

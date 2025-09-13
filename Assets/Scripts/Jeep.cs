@@ -140,11 +140,9 @@ public class Jeep : Entity
 
     private IEnumerator StopEngineRumble()
     {
-        engineRumbleAudio.PlayOneShot(engineStopClip);
-        
-        yield return new WaitForSeconds(engineRumbleAudio.clip.length);
-        
         engineRumbleAudio.Stop();
+        engineRumbleAudio.PlayOneShot(engineStopClip);
+        yield return null;
     }
 
     private bool CanExitVehicle()

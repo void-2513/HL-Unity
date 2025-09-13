@@ -57,6 +57,18 @@ public class PlayerAiming : MonoBehaviour
 				}
 			}
 		}
+		if (Input.GetKey(KeyCode.E))
+		{
+			if (Physics.Raycast(transform.position, transform.forward, out RaycastHit raycastHit, 3))
+			{
+				var entity = raycastHit.collider.GetComponentInParent<Entity>();
+
+				if (entity != null)
+				{
+					entity.OnHoldInteract(gameObject);
+				}
+			}
+		}
 
 		// Input
 		float xMovement = Input.GetAxisRaw("Mouse X") * horizontalSensitivity * sensitivityMultiplier;

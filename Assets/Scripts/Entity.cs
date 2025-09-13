@@ -5,6 +5,7 @@ public class Entity : MonoBehaviour
     public BasePlayer owner;
     
     public virtual void OnInteract(GameObject interactor) { }
+    public virtual void OnHoldInteract(GameObject interactor) { }
 
     public void AssignOwner(BasePlayer player)
     {

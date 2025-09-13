@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Crowbar : WeaponBase
 {
@@ -12,6 +14,11 @@ public class Crowbar : WeaponBase
     private void Awake()
     {
 
+    }
+
+    private void OnEnable()
+    {
+        PlayerUi.instance.EnableAmmoCount(false);
     }
 
     protected override void PrimaryAttack()
